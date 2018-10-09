@@ -1,9 +1,8 @@
 <?php
 include 'header.php';
-include 'lib/config.php';
-include 'lib/mydatabase.php';
 
-$db=new Database();
+
+
 
 $rowCountQuery="select * from v_post";
 $numResult=$db->getAllPost($rowCountQuery);
@@ -114,7 +113,7 @@ $pageContent=($page*5)-5;
                     <div class="card-footer">
                         <p class="card-text">
                             <small class="text-muted">Posted on <?php echo $row['post_date']; ?></small>
-                            <span class="float-right"><a href="#" title="" class="btn btn-primary">Read More <span
+                            <span class="float-right"><a href="read-post.php?p_id=<?php echo $row['id'];?>" title="" class="btn btn-primary">Read More <span
                                             class="badge badge-light"><?php echo $row['p_count']; ?></span></a></span>
                         </p>
                     </div>

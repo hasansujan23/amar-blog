@@ -14,7 +14,7 @@
             while ($prow=mysqli_fetch_assoc($popularPostResult)) {
 
                 ?>
-                <a href="" title="" style="text-decoration:none;display: block;">
+                <a href="read-post.php?p_id=<?php echo $prow['id'];?>" title="" style="text-decoration:none;display: block;">
                     <div class="popular-post">
                         <img class="img-thumbnail" src="images/post-image/<?php echo $prow['url']; ?>" alt="">
                         <p class="card-text"><?php echo $prow['title']; ?></p>
@@ -36,7 +36,7 @@
             $lPostResult=$db->getLatestPost($latestPostQuery);
             while ($lrow=mysqli_fetch_assoc($lPostResult)) {
                 ?>
-                <a href="" title="" style="text-decoration:none;display: block;">
+                <a href="read-post.php?p_id=<?php echo $lrow['id'];?>" title="" style="text-decoration:none;display: block;">
                     <div class="popular-post">
                         <img class="img-thumbnail" src="images/post-image/<?php echo $lrow['url']; ?>" alt="">
                         <p class="card-text"><?php echo $lrow['title']; ?></p>

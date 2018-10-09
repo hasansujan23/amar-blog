@@ -55,6 +55,33 @@ class Database
         }
     }
 
+    public function getAllSubject($query){
+        $result=mysqli_query($this->link,$query);
+        if($result){
+            return $result;
+        }else{
+            return false;
+        }
+    }
+
+    public function getRequestedPost($query){
+        $result=mysqli_query($this->link,$query);
+        if($result){
+            return $result;
+        }else{
+            return false;
+        }
+    }
+
+    public function updatePostCount($query){
+        $result=mysqli_query($this->link,$query);
+        if($result){
+            return $result;
+        }else{
+            return false;
+        }
+    }
+
 }
 
  ?>

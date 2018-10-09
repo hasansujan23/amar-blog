@@ -1,9 +1,10 @@
 <?php
-//$link= mysqli_connect('localhost','root','sujan','image_upload');
+include 'lib/config.php';
+include 'lib/mydatabase.php';
+
+$db=new Database();
+
 ?>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,17 +40,21 @@
     <div class="row">
         <div class="col-md-12 menubar-section">
             <ul>
-                <li><a href="" title="">Home</a></li>
-                <li><a href="" title="">Gallery</a></li>
-                <li><a href="" title="">About <i class="fa fa-caret-down"></i></a>
+                <li><a href="index.php" title="">Home</a></li>
+                <li><a href="" title="">Subject <i class="fa fa-caret-down"></i></a>
                     <ul>
-                        <li><a href="#">Dropdown1</a></li>
-                        <li><a href="#">Dropdown1</a></li>
-                        <li><a href="#">Dropdown1</a></li>
-                        <li><a href="#">Dropdown1</a></li>
-                        <li><a href="#">Dropdown1</a></li>
+                        <?php
+                        $subjectQuery="select * from t_postsection";
+                        $subjectResult=$db->getAllSubject($subjectQuery);
+                        while ($row=mysqli_fetch_assoc($subjectResult)) {
+                            ?>
+                            <li><a href="#"><?php echo $row['section'];?></a></li>
+                            <?php
+                        }
+                        ?>
                     </ul>
                 </li>
+                <li><a href="" title="">About</a></li>
                 <li><a href="" title="">Contact</a></li>
             </ul>
         </div>
