@@ -1,0 +1,75 @@
+.header-section{background: #151315;}
+.navbar-brand {
+
+    padding-bottom:0px;
+
+}
+.brand-logo{float:left;margin-left:50px;}
+.brand-logo img{height:80px;width:80px;}
+.brand-title{float:left;margin-top:40px;margin-left:10px;}
+.brand-title h2{color:aliceblue;font-style:bold;}
+.brand-title h2 span{}
+.navbar{
+	padding: 0px;
+}
+#navbarSupportedContent{}
+.navbar-nav{}
+.nav-link{
+	color:aliceblue;
+	font-size:20px;
+}
+.nav-link:hover{
+	color:green;
+}
+.banner-section{
+	background: url("../images/slider1.jpg")no-repeat;
+	background-size:cover;
+	background-position:center;
+	background-attachment:fixed;
+}
+.overlay{
+	width:100%;
+	background:rgba(0,0,0,.4);
+	padding:120px 0px;
+
+
+}
+.banner{
+	max-width:700px;
+}
+.banner h1{color:aliceblue;
+font-size:50px;
+font-weight:bold;
+text-transform:uppercase;
+}
+.banner p{
+	color:aliceblue;
+	font-size:30px;
+	max-width:550px;
+}
+.banner button{
+	font-size:24px;
+	padding:10px 50px;
+}
+.service-section{padding:75px 0px;}
+.service{}
+.service h2{
+	color:#8c8b8b;
+	font-size:30px;
+	padding:15px 0px;
+}
+.service p{
+	color:#8c8b8b;
+	font-size:16px;
+	padding:0px 5px;
+}
+.service-img{
+	background:#A8A8A8;
+	padding:70px 0px;
+	border:5px solid #fff;
+	box-shadow:0px -2px 2px #999;
+}
+.service-img i{
+	font-size:50px;
+	color:aliceblue;
+}
