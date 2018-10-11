@@ -41,14 +41,14 @@ $db=new Database();
         <div class="col-md-12 menubar-section">
             <ul>
                 <li><a href="index.php" title="">Home</a></li>
-                <li><a href="" title="">Subject <i class="fa fa-caret-down"></i></a>
+                <li><a href="#" title="">Subject <i class="fa fa-caret-down"></i></a>
                     <ul>
                         <?php
                         $subjectQuery="select * from t_postsection";
                         $subjectResult=$db->getAllSubject($subjectQuery);
                         while ($row=mysqli_fetch_assoc($subjectResult)) {
                             ?>
-                            <li><a href="#"><?php echo $row['section'];?></a></li>
+                            <li><a href="subject.php?s_id=<?php echo $row['id'];?>"><?php echo $row['section'];?></a></li>
                             <?php
                         }
                         ?>
