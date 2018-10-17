@@ -105,7 +105,7 @@ $pageContent=($page*5)-5;
                     </div>
                     <div class="card-body">
                         <div class="mb-2">
-                            <img class="card-img" src="images/post-image/<?php echo $row['url']; ?>" alt="Card image cap" height="300px">
+                            <img class="card-img" src="<?php echo $row['url']; ?>" alt="Card image cap" height="300px">
                         </div>
                         <h5 class="card-title text-dark"><?php echo $row['title']; ?></h5>
                         <p class="card-text"><?php echo $post."...."; ?></p>

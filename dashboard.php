@@ -8,7 +8,7 @@ if(!isset($_SESSION['authenticateUser'])){
 
 $authenticateUser=$_SESSION['authenticateUser'];
 $db=new Database();
-$query="select url,title,content,p_count,post_date,section from v_post where user_id='$authenticateUser'";
+$query="select id,url,title,content,p_count,post_date,section from v_post where user_id='$authenticateUser'";
 $result=$db->getAllPost($query);
 ?>
 
@@ -49,10 +49,10 @@ $result=$db->getAllPost($query);
                     <a href="" class="" id="active">Dashboard</a>
                 </li>
                 <li>
-                    <a href="#">Post</a>
+                    <a href="post.php">Post</a>
                 </li>
                 <li>
-                    <a href="#">Overview</a>
+                    <a href="index.php">Overview</a>
                 </li>
                 <li>
                     <a href="#">About</a>
@@ -98,7 +98,7 @@ $result=$db->getAllPost($query);
                                         ?>
                                         <tr>
                                             <td>
-                                                <img src="images/post-image/<?php echo $row['url']; ?>" height="100px" width="100px">
+                                                <img src="<?php echo $row['url']; ?>" height="100px" width="100px">
                                             </td>
                                             <td><?php echo $row['title']; ?></td>
                                             <td><?php echo $row['content']; ?></td>
@@ -106,8 +106,8 @@ $result=$db->getAllPost($query);
                                             <td><?php echo $row['post_date']; ?></td>
                                             <td><?php echo $row['section']; ?></td>
                                             <td style="width: 15%;">
-                                                <a href="#" class="btn btn-warning">Edit</a>
-                                                <a href="#" class="btn btn-danger">Delete</a>
+                                                <a href="edit-post.php?id=<?php echo $row['id'];?>" class="btn btn-warning">Edit</a>
+                                                <a href="delete-post.php?id=<?php echo $row['id'];?>&url=<?php echo $row['url']; ?>" class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                         <?php

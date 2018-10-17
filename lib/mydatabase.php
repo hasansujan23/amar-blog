@@ -89,6 +89,16 @@ class Database
         return $result;
     }
 
+    public function getExecute($query){
+        $result=mysqli_query($this->link,$query);
+        $row=mysqli_affected_rows($this->link);
+        if($row>0){
+            return $row;
+        }else{
+            return 0;
+        }
+    }
+
 }
 
  ?>

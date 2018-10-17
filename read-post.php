@@ -36,7 +36,7 @@ $relatedPostResult=$db->getRequestedPost($relatedPostQuery);
                     </div>
                     <div class="card-body">
                         <div class="mb-2">
-                            <img class="card-img img-thumbnail" style="max-width: 100%;" src="images/post-image/<?php echo $row['url'];?>">
+                            <img class="card-img img-thumbnail" style="max-width: 100%;" src="<?php echo $row['url'];?>">
                         </div>
                         <div>
                             <h4 class="card-title text-danger"><?php echo $row['title'];?></h4>
@@ -63,7 +63,7 @@ $relatedPostResult=$db->getRequestedPost($relatedPostQuery);
                         <a href="read-post.php?p_id=<?php echo $row['id'];?>&s_id=<?php echo $row['section_id'];?>" style="text-decoration: none;">
                             <div class="" style="border: 1px solid #0C3C60;border-radius: 5px;">
                                 <div>
-                                    <img class="img-thumbnail" src="images/post-image/<?php echo $row['url'];?>">
+                                    <img class="img-thumbnail" src="<?php echo $row['url'];?>">
                                 </div>
                                 <div>
                                     <p class="text-muted" style="padding: 5px;"><?php echo $row['title'];?></p>
