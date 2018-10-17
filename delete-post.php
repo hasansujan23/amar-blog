@@ -3,7 +3,6 @@ include 'lib/config.php' ;
 include 'lib/mydatabase.php';
 ?>
 
-
 <?php
 
 $id=$_GET['id'];
