@@ -30,12 +30,13 @@ class Database
 
 	public function getAllPost($query){
 	    $result=mysqli_query($this->link,$query);
-	    if($result){
-	        return $result;
-        }else{
-	        return false;
-
-        }
+        return $result;
+//	    if($result){
+//	        return $result;
+//        }else{
+//	        return false;
+//
+//        }
     }
 
     public function getPopularPost($query){
@@ -81,6 +82,11 @@ class Database
         }else{
             return false;
         }
+    }
+
+    public function getUsers($query){
+        $result=mysqli_query($this->link,$query);
+        return $result;
     }
 
 }

@@ -1,13 +1,16 @@
 <?php
 include 'header.php';
-$sectioId=$_GET['s_id'];
+$sectionId=$_GET['s_id'];
 
 
 
-$rowCountQuery="select * from v_post where section_id='$sectioId'";
+$rowCountQuery="select * from v_post where section_id='$sectionId'";
 $numResult=$db->getAllPost($rowCountQuery);
 $numRows=mysqli_num_rows($numResult);
 $totalPage=ceil($numRows/5);
+if($totalPage==0){
+    $totalPage=1;
+}
 
 if(isset($_GET['page'])){
     $page=$_GET['page'];
@@ -36,7 +39,7 @@ $pageContent=($page*5)-5;
         <div class="row">
             <div class="col-md-9 mb-2">
                 <?php
-                $getPostQuery="select * from v_post where section_id='$sectioId' limit ".$pageContent.",5";
+                $getPostQuery="select * from v_post where section_id='$sectionId' limit ".$pageContent.",5";
                 $result=$db->getAllPost($getPostQuery);
                 $numPosts=mysqli_num_rows($result);
                 if($numPosts>0) {
@@ -80,8 +83,14 @@ $pageContent=($page*5)-5;
                         </div>
                         <?php
                     }
+                }else {
+                    ?>
+                    <div class="alert alert-info">
+                        <h3 class="text-center">No one submitted any post in this section.</h3>
+                    </div>
+                    <?php
                 }
-                ?>
+                    ?>
             </div>
             <?php include 'sidebar.php';?>
         </div>
