@@ -1,9 +1,6 @@
 <?php
 include 'header.php';
 
-
-
-
 $rowCountQuery="select * from v_post";
 $numResult=$db->getAllPost($rowCountQuery);
 $numRows=mysqli_num_rows($numResult);
