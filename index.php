@@ -97,7 +97,7 @@ $pageContent=($page*5)-5;
                 ?>
                 <div class="card mt-2">
                     <div class="card-header">
-                        <h5 class="text-secondary">Author Name: <?php echo $row['user_id']; ?></h5>
+                        <h5 class="text-secondary">Author: <span><a class="card-link" href="user-profile.php?user_id=<?php echo $row['user_id']; ?>"><?php echo $row['user_id']; ?></a></span></h5>
                         <h6 class="text-muted">Category: <?php echo $row['section']; ?></h6>
                     </div>
                     <div class="card-body">
