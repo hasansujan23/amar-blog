@@ -1,41 +1,14 @@
 <?php
 include 'header.php';
 
-$userId="sujan38";
-//$userName="";
-//$userPro="";
-//$userCountry="";
-//$UserInst="";
-//$about="";
-//$fb="";
-//$gPlus="";
-//$linkdin="";
-//$twt="";
+$userId=$_GET['user_id'];
+
 $userDetailsQuery="select * from t_user_details where user_id='$userId'";
-
 $result=$db->getAllPost($userDetailsQuery);
-//$numRows=mysqli_num_rows($result);
-//if($numRows>0){
-//    while ($row=mysqli_fetch_assoc($result)){
-//        $userName=$row['user_name'];
-//        $userPro=$row['profession'];
-//        $userCountry=$row['country'];
-//        $UserInst=$row=['institute'];
-//        $userAbout=$row['about'];
-//        $url=$row['profile_pic'];
-//        $fb=$row['facebook'];
-//        $linkdin=$row['linkedin'];
-//        $twt=$row['twitter'];
-//        $gPlus=$row['google_plus'];
-//    }
-//}
-
-
-
 
 ?>
-<div class="container">
-    <div class="row">
+<div class="container" style="background-color: #E2E2E2;">
+    <div class="row mb-2">
         <div class="col-md-9 mt-2">
             <div class="card">
                 <div class="card-body">
@@ -47,7 +20,7 @@ $result=$db->getAllPost($userDetailsQuery);
                             <div class="card">
                                 <div class="card-body">
                                     <img class="img-fluid rounded-circle"
-                                         src="images/post-image/profile-picture/sujan38aaa.jpg">
+                                         src="<?php echo $row['profile_pic'];?>">
                                 </div>
                                 <div class="card-footer">
                                     <h4 class="text-center text-dark"><?php echo $row['user_name']; ?></h4>
@@ -59,21 +32,23 @@ $result=$db->getAllPost($userDetailsQuery);
                         <div class="col-md-7">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="text-muted">Posted area:</h5>
+                                    <h5 class="text-dark">Institute:</h5>
+                                    <h5 class="text-secondary"><?php echo $row['institute'];?></h5>
+                                    <h5 class="text-dark">Posted area:</h5>
                                     <ul class="">
                                         <?php
                                         $query1="SELECT section,count(section) as cnt from v_post where user_id='$userId' GROUP BY section_id";
                                         $res=$db->getAllPost($query1);
                                         while ($row1=mysqli_fetch_assoc($res)) {
                                             ?>
-                                            <li><p><?php echo $row1['section'];?> <span><?php echo $row1['cnt'];?></span></p></li>
+                                            <li><p class="text-muted"><?php echo $row1['section'];?> <span><?php echo $row1['cnt'];?></span></p></li>
                                             <?php
                                         }
                                             ?>
                                     </ul>
                                 </div>
                                 <div class="card-footer">
-                                    <h5 class="text-muted">Connect with me:</h5>
+                                    <h5 class="text-dark">Connect with me:</h5>
                                     <div>
                                         <a href="<?php echo $row['facebook']; ?>"><img src="images/p3.png" height="40px"
                                                                           width="40px"></a>
