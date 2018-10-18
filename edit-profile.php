@@ -115,7 +115,7 @@ $newProPic=$_FILES['user_profilePic']['name'];
                 </a>
             </li>
             <li>
-                <a href="" class="" id="active">Dashboard</a>
+                <a href="" class="">Dashboard</a>
             </li>
             <li>
                 <a href="post.php">Post</a>
@@ -125,6 +125,9 @@ $newProPic=$_FILES['user_profilePic']['name'];
             </li>
             <li>
                 <a href="#">About</a>
+            </li>
+            <li>
+                <a href="edit-profile.php" id="active">Edit Profile</a>
             </li>
             <li>
                 <a href="logout.php">Logout</a>

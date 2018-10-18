@@ -58,6 +58,9 @@ $result=$db->getAllPost($query);
                     <a href="#">About</a>
                 </li>
                 <li>
+                    <a href="edit-profile.php">Edit Profile</a>
+                </li>
+                <li>
                     <a href="logout.php">Logout</a>
                 </li>
             </ul>

@@ -81,16 +81,19 @@ if(isset($_POST['submit'])){
                 </a>
             </li>
             <li>
-                <a href="" class="" >Dashboard</a>
+                <a href="" class="">Dashboard</a>
             </li>
             <li>
-                <a href="#" id="active">Post</a>
+                <a href="#" id="active" id="active">Post</a>
             </li>
             <li>
                 <a href="#">Overview</a>
             </li>
             <li>
                 <a href="#">About</a>
+            </li>
+            <li>
+                <a href="edit-profile.php">Edit Profile</a>
             </li>
             <li>
                 <a href="logout.php">Logout</a>
