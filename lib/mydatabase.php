@@ -31,12 +31,6 @@ class Database
 	public function getAllPost($query){
 	    $result=mysqli_query($this->link,$query);
         return $result;
-//	    if($result){
-//	        return $result;
-//        }else{
-//	        return false;
-//
-//        }
     }
 
     public function getPopularPost($query){
