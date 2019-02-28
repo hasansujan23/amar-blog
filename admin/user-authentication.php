@@ -19,9 +19,15 @@ if(isset($_GET['del_id'])){
     $deleteUserQuery="delete from t_user_login where user_id='$delId'";
     $deleteUserResult=$db->getExecute($deleteUserQuery);
     if($deleteUserResult>0){
+        $db->getDeltePost($delId);
+        $db->getDelteUserFile($delId);
         $db->getExecute("delete from t_user_details where user_id='$delId'");
         $db->getExecute("delete from t_post where user_id='$delId'");
         header("Location: index.php");
+    }
+    session_start();
+    if(isset($_SESSION['authenticateUser'])){
+        session_unset('authenticateUser');
     }
 }
 
@@ -35,6 +41,10 @@ if(isset($_GET['id']))
         $disableUserResult=$db->getExecute($disableUserQuery);
         if($disableUserResult>0){
             header("Location: index.php");
+        }
+        session_start();
+        if(isset($_SESSION['authenticateUser'])){
+            session_unset('authenticateUser');
         }
     }else{
         $approveUserQuery="update t_user_login set status=1 where user_id='$userId'";

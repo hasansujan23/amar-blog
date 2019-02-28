@@ -41,6 +41,7 @@ $newProPic=$_FILES['user_profilePic']['name'];
         $tempLoc=$_FILES['user_profilePic']['tmp_name'];
         $directory='images/post-image/profile-picture/';
         $imgUrl=$directory.$authenticateUser.$newProPic;
+        echo $imgUrl;
 
         $fileType=pathinfo($imgUrl,PATHINFO_EXTENSION);
         $check=getimagesize($tempLoc);
@@ -53,9 +54,11 @@ $newProPic=$_FILES['user_profilePic']['name'];
                     //die('File not supported. Please chose jpg or png file');
                     $errMessage="File not supported. Please chose jpg or png file";
                 }else{
+                    if($oldProPic!=""){
+                        unlink("../".$oldProPic);
+                    }
                     move_uploaded_file($tempLoc, "../".$imgUrl);
                     $sql="update t_user_details set user_name='$name',profession='$prof',country='$country',institute='$inst',about='$about',profile_pic='$imgUrl',facebook='$fb',linkedin='$linkdin',twitter='$twitter',google_plus='$google' where user_id='$authenticateUser'";
-                    unlink("../".$oldProPic);
                     //echo "Successfully Post";
                     $row=$db->getExecute($sql);
                     if($row>0){

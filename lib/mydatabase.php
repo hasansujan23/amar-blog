@@ -93,6 +93,28 @@ class Database
         }
     }
 
+    public function getDeltePost($id){
+	    $query="select url from t_post where user_id='$id'";
+        $result=mysqli_query($this->link,$query);
+        $res=mysqli_num_rows($result);
+        if($res>0){
+            while ($row=mysqli_fetch_assoc($result)){
+                unlink("../".$row['url']);
+            }
+        }
+    }
+
+    public function getDelteUserFile($id){
+        $query="select profile_pic from t_user_details where user_id='$id'";
+        $result=mysqli_query($this->link,$query);
+        $res=mysqli_num_rows($result);
+        if($res>0){
+            while ($row=mysqli_fetch_assoc($result)){
+                unlink("../".$row['profile_pic']);
+            }
+        }
+    }
+
 }
 
  ?>
