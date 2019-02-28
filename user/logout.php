@@ -2,9 +2,9 @@
 session_start();
 if(isset($_SESSION['authenticateUser'])){
     session_unset('authenticateUser');
-    header("Location: index.php");
+    header("Location: ../login.php");
 }else{
-    header("Location: login.php");
+    header("Location: ../login.php");
 }
 
 ?>

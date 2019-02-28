@@ -1,48 +1,67 @@
 <?php
-include 'lib/config.php';
-include 'lib/mydatabase.php';
+include '../lib/config.php';
+include '../lib/mydatabase.php';
 session_start();
-if(!isset($_SESSION['authenticateUser'])){
-    header("Location: login.php");
-}
 
 $authenticateUser=$_SESSION['authenticateUser'];
 $db=new Database();
+$id=$_GET['id'];
+$userPostQuery="select * from v_post where id='$id'";
+$result=$db->getAllPost($userPostQuery);
+$oldURL="";
+
+if($result){
+    while ($row=$result->fetch_assoc()){
+        $oldURL=$row['url'];
+        $oldTitle=$row['title'];
+        $oldContent=$row['content'];
+        $oldSectionId=$row['section_id'];
+        $oldSection=$row['section'];
+    }
+}
 
 if(isset($_POST['submit'])){
-
+    $title=$_POST['title'];
+    $content=$_POST['content'];
+    $postCount=0;
+    $newSectionId=$_POST['post_section'];
     $fileName=$_FILES['image_file']['name'];
-    $tempLoc=$_FILES['image_file']['tmp_name'];
-    $directory='images/post-image/images/';
-    $imgUrl=$directory.$authenticateUser.$fileName;
+    if($fileName){
 
-    $fileType=pathinfo($imgUrl,PATHINFO_EXTENSION);
-    $check=getimagesize($tempLoc);
+        $tempLoc=$_FILES['image_file']['tmp_name'];
+        $directory='images/post-image/images/';
+        $imgUrl=$directory.$authenticateUser.$fileName;
 
-    if ($check>0) {
-        if (file_exists($imgUrl)) {
-            die('This file already exists....');
-        }else{
-            if ($fileType!='jpg' && $fileType!='png') {
-                die('File not supported. Please chose jpg or png file');
+        $fileType=pathinfo($imgUrl,PATHINFO_EXTENSION);
+        $check=getimagesize($tempLoc);
+
+        if ($check) {
+            if (file_exists($imgUrl)) {
+                die('This file already exists....');
             }else{
-                move_uploaded_file($tempLoc, $imgUrl);
-                $title=$_POST['title'];
-                $content=$_POST['content'];
-                $postCount=0;
-                $postSection=$_POST['post_section'];
-                $sql="insert into t_post(url,title,content,p_count,p_date,user_id,section_id) values('$imgUrl','$title','$content','$postCount',current_timestamp(),'$authenticateUser','$postSection')";
-                //mysqli_query($link,$sql);
-                $row=$db->getExecute($sql);
-                if($row>0){
-                    header("Location: dashboard.php");
+                if ($fileType!='jpg' && $fileType!='png') {
+                    die('File not supported. Please chose jpg or png file');
+                }else{
+                    move_uploaded_file($tempLoc, "/".$imgUrl);
+                    $sql="update t_post set url='$imgUrl',title='$title',content='$content',p_count='$postCount',p_date=current_timestamp(),section_id='$newSectionId' where id='$id'";
+                    unlink("/".$oldURL);
+                    $row=$db->getExecute($sql);
+                    if($row>0){
+                        header("Location: index.php");
+                    }
                 }
             }
+        }else{
+            die('Please enter the image file!');
         }
-    }else{
-        $error="Please enter the image file!";
-    }
 
+    }else{
+        $sql="update t_post set url='$oldURL',title='$title',content='$content',p_count='$postCount',p_date=current_timestamp(),section_id='$newSectionId' where id='$id'";
+        $row=$db->getExecute($sql);
+        if($row){
+            header("Location: index.php");
+        }
+    }
 }
 
 ?>
@@ -61,10 +80,10 @@ if(isset($_POST['submit'])){
     <title>Simple Sidebar - Start Bootstrap Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
 
 </head>
 
@@ -81,19 +100,16 @@ if(isset($_POST['submit'])){
                 </a>
             </li>
             <li>
-                <a href="" class="">Dashboard</a>
+                <a href="index.php" class="" >Dashboard</a>
             </li>
             <li>
-                <a href="#" id="active" id="active">Post</a>
+                <a href="#" id="active">Post</a>
             </li>
             <li>
                 <a href="#">Overview</a>
             </li>
             <li>
                 <a href="#">About</a>
-            </li>
-            <li>
-                <a href="edit-profile.php">Edit Profile</a>
             </li>
             <li>
                 <a href="logout.php">Logout</a>
@@ -119,6 +135,7 @@ if(isset($_POST['submit'])){
                         </div>
                         <div class="card-body">
                             <form action="" method="POST" enctype="multipart/form-data">
+
                                 <div class="form-group">
                                     <label>Input image file</label>
                                     <input type="file" class="form-control-file" name="image_file">
@@ -126,8 +143,9 @@ if(isset($_POST['submit'])){
                                 <div class="form-group">
                                     <label>Section</label>
                                     <select class="form-control" name="post_section">
+                                        <option value="<?php echo $oldSectionId;?>"><?php echo $oldSection;?></option>
                                         <?php
-                                        $sectionQuery="select * from t_postsection";
+                                        $sectionQuery="select * from t_postsection where id!='$oldSectionId'";
                                         $result=$db->getAllPost($sectionQuery);
                                         while ($row=mysqli_fetch_assoc($result)){
                                             ?>
@@ -137,13 +155,14 @@ if(isset($_POST['submit'])){
                                 </div>
                                 <div class="form-group">
                                     <label>Title</label>
-                                    <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" required>
+                                    <input type="text" class="form-control" id="title" name="title" value="<?php echo $oldTitle ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="content">Content</label>
-                                    <textarea class="ckeditor form-control" name="content" required> </textarea>
+                                    <textarea class="ckeditor form-control" name="content"><?php echo $oldContent?></textarea>
                                 </div>
-                                <input type="submit" name="submit" class="btn btn-primary" value="POST">
+                                <input type="submit" name="submit" class="btn btn-primary" value="UPDATE POST">
+
                             </form>
                         </div>
                         <div class="card-footer">
@@ -160,9 +179,9 @@ if(isset($_POST['submit'])){
 <!-- /#wrapper -->
 
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="ckeditor/ckeditor.js"></script>
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../ckeditor/ckeditor.js"></script>
 
 <!-- Menu Toggle Script -->
 <script>
@@ -173,5 +192,6 @@ if(isset($_POST['submit'])){
 </script>
 
 </body>
+
 
 </html>

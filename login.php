@@ -17,13 +17,19 @@ if(isset($_POST['submit'])){
     $userId=$_POST['user_id'];
     $pwd=$_POST['user_pwd'];
 
-    $query="select * from t_user_login where user_id='$userId' and password='$pwd'";
+    $query="select * from t_user_login where user_id='$userId' and status=1";
     $result=$db->getUsers($query);
     $row=mysqli_num_rows($result);
     if($row>0){
-        session_start();
-        $_SESSION['authenticateUser']=$userId;
-        header("Location: dashboard.php");
+        $res=mysqli_fetch_assoc($result);
+        if(password_verify($pwd,$res['password'])){
+            session_start();
+            $_SESSION['authenticateUser']=$userId;
+            header("Location: user/index.php");
+        }else{
+            $errMsg="Wrong user id or password";
+        }
+
     }else{
         $errMsg="Wrong user id or password";
     }
@@ -79,7 +85,7 @@ if(isset($_POST['submit'])){
                         </form>
                     </div>
                     <div class="card-footer">
-                        <h5 class="text-muted">Don't have any account <span class="float-right"><a href="signup.php" class="card-link">SignUp</a></span></h5>
+                        <h5 class="text-muted">Don't have any account <span class="float-right"><a href="register.php" class="card-link">SignUp</a></span></h5>
                     </div>
                 </div>
             </div>

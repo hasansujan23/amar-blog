@@ -1,6 +1,6 @@
 <?php
-include 'lib/config.php' ;
-include 'lib/mydatabase.php';
+include '../lib/config.php' ;
+include '../lib/mydatabase.php';
 ?>
 
 <?php
@@ -11,8 +11,8 @@ $db=new Database();
 $deleteQuery="delete from t_post where id='$id'";
 $row=$db->getExecute($deleteQuery);
 if($row){
-    unlink($url);
-    header("Location: dashboard.php");
+    unlink("../".$url);
+    header("Location: index.php");
 }else{
     echo "Can't delete!!!";
 }

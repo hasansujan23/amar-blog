@@ -1,9 +1,9 @@
 <?php
-include 'lib/config.php';
-include 'lib/mydatabase.php';
+include '../lib/config.php';
+include '../lib/mydatabase.php';
 session_start();
 if(!isset($_SESSION['authenticateUser'])){
-    header("Location: login.php");
+    header("Location: ../login.php");
 }
 
 $authenticateUser=$_SESSION['authenticateUser'];
@@ -26,10 +26,10 @@ $result=$db->getAllPost($query);
     <title>Simple Sidebar - Start Bootstrap Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
 
 </head>
 
@@ -46,7 +46,7 @@ $result=$db->getAllPost($query);
                     </a>
                 </li>
                 <li>
-                    <a href="" class="" id="active">Dashboard</a>
+                    <a href="index.php" class="" id="active">Dashboard</a>
                 </li>
                 <li>
                     <a href="post.php">Post</a>
@@ -101,7 +101,7 @@ $result=$db->getAllPost($query);
                                         ?>
                                         <tr>
                                             <td>
-                                                <img src="<?php echo $row['url']; ?>" height="100px" width="100px">
+                                                <img src="../<?php echo $row['url']; ?>" height="100px" width="100px">
                                             </td>
                                             <td><?php echo $row['title']; ?></td>
                                             <td><?php echo $row['content']; ?></td>
@@ -131,8 +131,8 @@ $result=$db->getAllPost($query);
     <!-- /#wrapper -->
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Menu Toggle Script -->
     <script>

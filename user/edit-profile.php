@@ -1,9 +1,9 @@
 <?php
-include 'lib/config.php';
-include 'lib/mydatabase.php';
+include '../lib/config.php';
+include '../lib/mydatabase.php';
 session_start();
 if(!isset($_SESSION['authenticateUser'])){
-    header("Location: login.php");
+    header("Location: ../login.php");
 }
 
 $authenticateUser=$_SESSION['authenticateUser'];
@@ -53,13 +53,13 @@ $newProPic=$_FILES['user_profilePic']['name'];
                     //die('File not supported. Please chose jpg or png file');
                     $errMessage="File not supported. Please chose jpg or png file";
                 }else{
-                    move_uploaded_file($tempLoc, $imgUrl);
+                    move_uploaded_file($tempLoc, "../".$imgUrl);
                     $sql="update t_user_details set user_name='$name',profession='$prof',country='$country',institute='$inst',about='$about',profile_pic='$imgUrl',facebook='$fb',linkedin='$linkdin',twitter='$twitter',google_plus='$google' where user_id='$authenticateUser'";
-                    unlink($oldProPic);
+                    unlink("../".$oldProPic);
                     //echo "Successfully Post";
                     $row=$db->getExecute($sql);
                     if($row>0){
-                        header("Location: dashboard.php");
+                        header("Location: index.php");
                     }
                 }
             }
@@ -71,7 +71,7 @@ $newProPic=$_FILES['user_profilePic']['name'];
         $sql="update t_user_details set user_name='$name',profession='$prof',country='$country',institute='$inst',about='$about',profile_pic='$oldProPic',facebook='$fb',linkedin='$linkdin',twitter='$twitter',google_plus='$google' where user_id='$authenticateUser'";
         $row=$db->getExecute($sql);
         if($row){
-            header("Location: dashboard.php");
+            header("Location: index.php");
         }
     }
 
@@ -95,10 +95,10 @@ $newProPic=$_FILES['user_profilePic']['name'];
     <title>Simple Sidebar - Start Bootstrap Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
 
 </head>
 
@@ -163,7 +163,7 @@ $newProPic=$_FILES['user_profilePic']['name'];
                         <div class="card-body">
                             <form action="" method="post" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <img class="img-thumbnail" src="<?php echo $oldProPic;?>" alt="" height="200px"
+                                        <img class="img-thumbnail" src="../<?php echo $oldProPic;?>" alt="" height="200px"
                                              width="200px"><br>
                                         <label>Profile Picture</label>
                                         <input type="file" name="user_profilePic" class="form-control-file">
@@ -222,9 +222,9 @@ $newProPic=$_FILES['user_profilePic']['name'];
 <!-- /#wrapper -->
 
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="ckeditor/ckeditor.js"></script>
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../ckeditor/ckeditor.js"></script>
 
 <!-- Menu Toggle Script -->
 <script>

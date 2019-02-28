@@ -8,8 +8,8 @@
 ?>
 
 <?php
-include 'lib/config.php';
-include 'lib/mydatabase.php';
+include '../lib/config.php';
+include '../lib/mydatabase.php';
 //session_start();
 //if(!isset($_SESSION['authenticateUser'])){
 //    header("Location: login.php");
@@ -17,10 +17,10 @@ include 'lib/mydatabase.php';
 //$authenticateUser=$_SESSION['authenticateUser'];
 
 $db=new Database();
-$authenticUserQuery="select user_id,email,status from t_user_login where status=0";
+$authenticUserQuery="select user_id,email,status from t_user_login where status=1";
 $authenticUserResult=$db->getAllPost($authenticUserQuery);
 
-$pendingUserQuery="select user_id,email,status from t_user_login where status=1";
+$pendingUserQuery="select user_id,email,status from t_user_login where status=0";
 $pendingUserResult=$db->getAllPost($pendingUserQuery);
 ?>
 
@@ -38,10 +38,10 @@ $pendingUserResult=$db->getAllPost($pendingUserQuery);
     <title>Simple Sidebar - Start Bootstrap Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
 
 </head>
 
@@ -58,7 +58,7 @@ $pendingUserResult=$db->getAllPost($pendingUserQuery);
                 </a>
             </li>
             <li>
-                <a href="" class="" id="active">Dashboard</a>
+                <a href="" class="" id="active">Admin</a>
             </li>
             <li>
                 <a href="post.php">Post</a>
@@ -112,7 +112,8 @@ $pendingUserResult=$db->getAllPost($pendingUserQuery);
                                         <td><?php echo $row['email']; ?></td>
                                         <td>
 <!--                                            <a href="edit-post.php?id=--><?php //echo $row['id'];?><!--" class="btn btn-warning">Edit</a>-->
-                                            <a href="user-authentication.php?id=<?php echo $row['status'];?>&user_id=<?php echo $row['user_id']; ?>" class="btn btn-danger">Disable</a>
+                                            <a href="user-authentication.php?id=<?php echo $row['status'];?>&user_id=<?php echo $row['user_id']; ?>" class="btn btn-warning">Disable</a>
+                                            <a href="user-authentication.php?del_id=<?php echo $row['user_id']; ?>" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                     <?php
@@ -147,7 +148,7 @@ $pendingUserResult=$db->getAllPost($pendingUserQuery);
                                         <td><?php echo $row['email']; ?></td>
                                         <td>
                                             <a href="user-authentication.php?id=<?php echo $row['status'];?>&user_id=<?php echo $row['user_id']; ?>" class="btn btn-primary">Enable</a>
-
+                                            <a href="user-authentication.php?del_id=<?php echo $row['user_id']; ?>" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                     <?php
@@ -168,8 +169,8 @@ $pendingUserResult=$db->getAllPost($pendingUserQuery);
 <!-- /#wrapper -->
 
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Menu Toggle Script -->
 <script>
