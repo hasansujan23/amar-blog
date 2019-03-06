@@ -18,6 +18,12 @@ $rpostResult=$db->getRequestedPost($rPostQuery);
 
 $relatedPostQuery="select id,url,title,section_id from v_post where section_id='$sectionId' limit 5";
 $relatedPostResult=$db->getRequestedPost($relatedPostQuery);
+
+$userId="";
+session_start();
+if(isset($_SESSION['authenticateUser'])){
+    $userId=$_SESSION['authenticateUser'];
+}
 ?>
 
 
@@ -76,7 +82,32 @@ $relatedPostResult=$db->getRequestedPost($relatedPostQuery);
                     ?>
 
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Comment Here</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="commentForm">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="user_id" id="user_id" value="<?php echo $userId;?>" style="display: none;">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="post_id" id="post_id" value="<?php echo $postId;?>" style="display: none;">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" id="comment" name="comment" rows="6"></textarea>
+                                </div>
+                                <input class="btn btn-success" type="button" id="commentSubmit" name="commentSubmit" value="SUBMIT">
+                            </form>
+                        </div>
+                        <div class="card-footer" id="userComment">
 
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
         <?php

@@ -8,21 +8,34 @@ if(!isset($_SESSION['authenticateUser'])){
 
 $authenticateUser=$_SESSION['authenticateUser'];
 $errMessage="";
+$oldProPic="";
+$userName="";
+$userProf="";
+$userInst="";
+$userCountry="";
+$userAbout="";
+$userFb="";
+$userLink="";
+$userTwt="";
+$user_google="";
 $db=new Database();
 $query="select * from t_user_details where user_id='$authenticateUser'";
 $result=$db->getAllPost($query);
-while ($row=mysqli_fetch_assoc($result)){
-    $oldProPic=$row['profile_pic'];
-    $userName=$row['user_name'];
-    $userProf=$row['profession'];
-    $userInst=$row['institute'];
-    $userCountry=$row['country'];
-    $userAbout=$row['about'];
-    $userFb=$row['facebook'];
-    $userLink=$row['linkedin'];
-    $userTwt=$row['twitter'];
-    $user_google=$row['google_plus'];
+if(mysqli_num_rows($result)>0){
+    while ($row=mysqli_fetch_assoc($result)){
+        $oldProPic=$row['profile_pic'];
+        $userName=$row['user_name'];
+        $userProf=$row['profession'];
+        $userInst=$row['institute'];
+        $userCountry=$row['country'];
+        $userAbout=$row['about'];
+        $userFb=$row['facebook'];
+        $userLink=$row['linkedin'];
+        $userTwt=$row['twitter'];
+        $user_google=$row['google_plus'];
+    }
 }
+
 
 if(isset($_POST['submit'])){
 $name=$_POST['user_name'];
@@ -41,7 +54,7 @@ $newProPic=$_FILES['user_profilePic']['name'];
         $tempLoc=$_FILES['user_profilePic']['tmp_name'];
         $directory='images/post-image/profile-picture/';
         $imgUrl=$directory.$authenticateUser.$newProPic;
-        echo $imgUrl;
+        //echo $imgUrl;
 
         $fileType=pathinfo($imgUrl,PATHINFO_EXTENSION);
         $check=getimagesize($tempLoc);
@@ -59,10 +72,12 @@ $newProPic=$_FILES['user_profilePic']['name'];
                     }
                     move_uploaded_file($tempLoc, "../".$imgUrl);
                     $sql="update t_user_details set user_name='$name',profession='$prof',country='$country',institute='$inst',about='$about',profile_pic='$imgUrl',facebook='$fb',linkedin='$linkdin',twitter='$twitter',google_plus='$google' where user_id='$authenticateUser'";
-                    //echo "Successfully Post";
                     $row=$db->getExecute($sql);
+                    echo $row;
                     if($row>0){
                         header("Location: index.php");
+                    }else{
+                        echo "Error";
                     }
                 }
             }

@@ -42,7 +42,12 @@ if(isset($_POST['submit'])){
             $sql="insert into t_user_login values('$userId','$email','$pwd','$status')";
             $result3=$db->getExecute($sql);
             if($result3>0){
-                $successMsg="Successfully registered. Soon admin accept your request.";
+                $query="insert into t_user_details values('$userId','','','','','','','','','','')";
+                $result4=$db->getExecute($query);
+                if($result4>0){
+                    $successMsg="Successfully registered. Soon admin accept your request.";
+                }
+
             }else{
                 $errMsg="Please try again later";
             }
